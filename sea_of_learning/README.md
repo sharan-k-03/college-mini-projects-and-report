@@ -40,7 +40,7 @@ The project is built with React and Vite. It provides a YouTube-style study expe
 Run the following commands from the repository root:
 
 ```bash
-cd studytube
+cd sea_of_learning
 npm install
 npm run dev
 ```
@@ -55,7 +55,7 @@ The development server also supports hot module replacement.
 
 ## Available Commands
 
-Run these commands inside the `studytube/` directory:
+Run these commands inside the `sea_of_learning/` directory:
 
 | Command | Purpose |
 |---|---|
@@ -87,7 +87,7 @@ Search and layout options can also be included in the home-page URL:
 ## Project Structure
 
 ```text
-studytube/
+sea_of_learning/
 ├── public/                 Static public assets
 ├── src/
 │   ├── assets/             Images imported by the application
@@ -121,8 +121,8 @@ Upload validation follows the form order, with the selected file checked before 
 
 This project is a frontend-only prototype:
 
-- Mock user authentication is stored in `localStorage` under `studytube_user`.
-- Lecture metadata, likes, saved IDs, views, and comments are stored in `localStorage` under `studytube_data`.
+- Mock user authentication is stored in `localStorage` under `sea_of_learning_user`.
+- Lecture metadata, likes, saved IDs, views, and comments are stored in `localStorage` under `sea_of_learning_data`.
 - Uploaded lecture metadata is added to the current application state.
 - The upload preview uses a browser object URL and is not uploaded to a server or durable media service.
 - An IndexedDB media utility exists, but it is not currently called by the upload flow.

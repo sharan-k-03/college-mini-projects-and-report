@@ -1,5 +1,5 @@
 /**
- * StudyTube Regression & Bug Diagnostic Suite
+ * sea_of_learning Regression & Bug Diagnostic Suite
  * Run with: node --test src/__tests__/bugs.test.js
  *
  * Implements the diagnosing-bugs skill protocol:

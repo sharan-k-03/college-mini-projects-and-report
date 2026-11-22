@@ -2,13 +2,13 @@
 
 A public collection of college mini-projects, reports, prototypes, and learning experiments. The repository is open for students and contributors to study, improve, and reuse; please follow the applicable project guidelines and license.
 
-## Featured Project: sea_of_learning (StudyTube)
+## Featured Project: sea_of_learning
 
 **sea_of_learning** is an ad-free educational video platform prototype for discovering, watching, saving, and sharing academic lectures.
 
 It provides a YouTube-style learning experience with academic categories, search, filtering, sorting, video playback, likes, saved videos, discussion notes, mock authentication, local uploads, dark mode, and five switchable home-page layout prototypes.
 
-The project lives in [`studytube/`](studytube/) and is built with React 19 and Vite.
+The project lives in [`sea_of_learning/`](sea_of_learning/) and is built with React 19 and Vite.
 
 ## Features
 
@@ -32,7 +32,7 @@ The project lives in [`studytube/`](studytube/) and is built with React 19 and V
 .
 ├── GLOSSARY.md      Domain terminology for sea_of_learning
 ├── README.md        Repository documentation
-└── studytube/       React and Vite mini-project
+└── sea_of_learning/ React and Vite mini-project
     ├── public/      Static assets
     ├── src/
     │   ├── components/  Reusable interface components
@@ -67,7 +67,7 @@ The project lives in [`studytube/`](studytube/) and is built with React 19 and V
 ### Run the Project
 
 ```bash
-cd studytube
+cd sea_of_learning
 npm install
 npm run dev
 ```
@@ -83,7 +83,7 @@ npm run lint
 node --test src/__tests__/bugs.test.js
 ```
 
-Run these commands from the `studytube/` directory.
+Run these commands from the `sea_of_learning/` directory.
 
 ## Application Routes
 
@@ -122,7 +122,7 @@ Contributions are welcome. You may report issues, fix bugs, improve documentatio
    git checkout -b feature/your-change
    ```
 
-3. Make and test your changes from `studytube/`:
+3. Make and test your changes from `sea_of_learning/`:
 
    ```bash
    npm run lint

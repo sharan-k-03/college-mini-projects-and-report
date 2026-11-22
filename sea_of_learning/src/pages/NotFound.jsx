@@ -11,7 +11,7 @@ export default function NotFound() {
         The page you're looking for doesn't exist. Head back and keep studying!
       </p>
       <Link to="/" className="mt-2 px-6 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors">
-        Back to StudyTube
+        Back to sea_of_learning
       </Link>
     </div>
   );

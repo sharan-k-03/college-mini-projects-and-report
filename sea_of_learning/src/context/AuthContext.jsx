@@ -5,14 +5,14 @@ const AuthContext = createContext(null);
 const MOCK_USER = {
   id: "u_me",
   name: "You",
-  avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=studytube",
-  email: "student@studytube.app",
+  avatar: "https://api.dicebear.com/7.x/thumbs/svg?seed=sea_of_learning",
+  email: "student@seaoflearning.app",
 };
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     try {
-      const saved = localStorage.getItem("studytube_user");
+      const saved = localStorage.getItem("sea_of_learning_user");
       return saved ? JSON.parse(saved) : null;
     } catch {
       return null;
@@ -21,12 +21,12 @@ export function AuthProvider({ children }) {
 
   const login = () => {
     setUser(MOCK_USER);
-    localStorage.setItem("studytube_user", JSON.stringify(MOCK_USER));
+    localStorage.setItem("sea_of_learning_user", JSON.stringify(MOCK_USER));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("studytube_user");
+    localStorage.removeItem("sea_of_learning_user");
   };
 
   return (

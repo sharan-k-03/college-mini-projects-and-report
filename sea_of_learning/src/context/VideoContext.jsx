@@ -67,7 +67,7 @@ function videoReducer(state, action) {
   }
 }
 
-const STORAGE_KEY = "studytube_data";
+const STORAGE_KEY = "sea_of_learning_data";
 
 function loadState() {
   try {
