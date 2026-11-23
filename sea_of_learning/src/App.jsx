@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import { VideoProvider } from "./context/VideoContext";
 import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
@@ -18,7 +18,7 @@ export default function App() {
       <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white transition-colors">
         <AuthProvider>
           <VideoProvider>
-            <BrowserRouter>
+            <HashRouter>
               <Navbar
                 query={query}
                 setQuery={setQuery}
@@ -34,7 +34,7 @@ export default function App() {
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
-            </BrowserRouter>
+            </HashRouter>
           </VideoProvider>
         </AuthProvider>
       </div>
