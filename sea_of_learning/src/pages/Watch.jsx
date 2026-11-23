@@ -35,7 +35,7 @@ export default function Watch() {
 
   if (!video) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 px-4 text-center text-gray-400">
+      <div className="flex flex-col items-center justify-center px-4 py-20 text-center text-neutral-400">
         <BookOpen size={48} strokeWidth={1.5} />
         <p className="mt-4 text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">Video not found</p>
         <Link to="/" className="mt-3 text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium">
@@ -58,12 +58,12 @@ export default function Watch() {
   };
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+    <div className="mx-auto max-w-screen-2xl px-3 py-5 sm:px-6 sm:py-8">
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Main column */}
         <div className="flex-1 min-w-0">
           {/* Video player */}
-          <div className="aspect-video rounded-xl sm:rounded-2xl overflow-hidden bg-black shadow-lg">
+          <div className="aspect-video overflow-hidden rounded-2xl border border-white/8 bg-black shadow-2xl">
             <ReactPlayer
               url={video.videoUrl}
               controls
@@ -75,7 +75,7 @@ export default function Watch() {
 
           {/* Video info */}
           <div className="mt-3 sm:mt-4 text-left">
-            <h1 className="text-base sm:text-xl font-bold text-gray-900 dark:text-white leading-snug break-words">
+            <h1 className="break-words text-lg font-bold leading-snug text-neutral-950 dark:text-white sm:text-2xl">
               {video.title}
             </h1>
 

@@ -9,16 +9,15 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
   return (
     <div className="space-y-16 py-4">
       {/* 1. Hero Canvas: AI Hero Developer Aesthetic */}
-      <section className="relative overflow-hidden rounded-3xl bg-neutral-950 border border-neutral-800 text-white p-6 sm:p-10 md:p-16 shadow-2xl">
+      <section className="relative overflow-hidden rounded-lg border border-[#cbc5b8] bg-[#20372f] p-6 text-[#fffdf7] shadow-[0_18px_50px_rgba(38,48,42,.12)] sm:p-10 md:p-14">
         {/* Glow ambient effects */}
-        <div className="absolute top-0 right-1/4 -mt-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 -mr-20 -mb-20 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-2/5 border-l border-white/10 bg-[radial-gradient(circle_at_70%_40%,rgba(220,196,135,.18),transparent_48%)]" />
 
         <div className="relative z-10 max-w-3xl space-y-6 text-left">
           {/* Eyebrow status pill */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-neutral-900 border border-neutral-700 text-neutral-300 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[11px] text-emerald-400">v2.0 &bull; ZERO ADS &bull; 100% STUDY ONLY</span>
+          <div className="inline-flex items-center gap-2 border-b border-[#bcae80] pb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#d7c99d]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#d7c99d]" />
+            <span>The independent learning library</span>
           </div>
 
           {/* Main Headline */}

@@ -6,7 +6,7 @@ export default function VideoCard({ video }) {
   return (
     <Link to={`/watch/${video.id}`} className="group flex flex-col w-full">
       {/* Thumbnail */}
-      <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-200 dark:bg-gray-800 w-full">
+      <div className="relative w-full aspect-video overflow-hidden rounded-lg border border-[#dedbd3] bg-[#e9e7df] dark:border-white/8 dark:bg-neutral-900">
         <img
           src={video.thumbnail}
           alt={video.title}
@@ -32,7 +32,7 @@ export default function VideoCard({ video }) {
           className="w-8 h-8 rounded-full shrink-0 mt-0.5"
         />
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors break-words">
+          <h3 className="line-clamp-2 break-words text-sm font-semibold leading-snug text-neutral-900 transition-colors group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-300">
             {video.title}
           </h3>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">

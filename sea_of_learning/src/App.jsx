@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
 import { VideoProvider } from "./context/VideoContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -10,12 +10,19 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("sea_of_learning_theme");
+    return saved ? saved === "dark" : false;
+  });
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("sea_of_learning_theme", darkMode ? "dark" : "light");
+  }, [darkMode]);
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white transition-colors">
+      <div className="min-h-screen bg-[#f6f4ee] text-[#252724] transition-colors dark:bg-[#11110f] dark:text-neutral-100">
         <AuthProvider>
           <VideoProvider>
             <HashRouter>

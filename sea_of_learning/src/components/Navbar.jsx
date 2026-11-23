@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Search, Upload, Menu, Moon, Sun, User, LogOut, LogIn } from "lucide-react";
+import { Search, Upload, Moon, Sun, User, LogOut, LogIn } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar({ query, setQuery, darkMode, setDarkMode }) {
@@ -12,27 +12,19 @@ export default function Navbar({ query, setQuery, darkMode, setDarkMode }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-xs">
-      <div className="max-w-screen-2xl mx-auto px-3 sm:px-4 h-14 flex items-center justify-between gap-2 sm:gap-4">
+    <header className="sticky top-0 z-50 border-b border-[#dcd8cf] bg-[#faf9f6]/95 backdrop-blur-xl dark:border-white/8 dark:bg-[#11110f]/95">
+      <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between gap-2 px-3 sm:px-6">
         {/* Left Section: Clean Text Wordmark */}
         <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-          <button
-            type="button"
-            className="hidden sm:inline-flex p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
-            title="Menu"
-            aria-label="Guide menu"
-          >
-            <Menu size={20} />
-          </button>
-
-          <Link to="/" className="flex items-center group select-none py-1">
-            {/* Bold Wordmark & Country Badge */}
-            <div className="flex items-start">
-              <span className="text-lg sm:text-xl font-black tracking-tight text-gray-950 dark:text-white font-sans group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+          <Link to="/" className="group flex items-center py-1 select-none">
+            <div className="flex items-center">
+              <img
+                src={`${import.meta.env.BASE_URL}sea-of-learning-mark.svg`}
+                alt=""
+                className="mr-2 h-8 w-8 shrink-0 rounded-lg shadow-sm"
+              />
+              <span className="font-display text-lg font-bold tracking-tight text-[#1d2a26] dark:text-white sm:text-xl">
                 sea_of_learning
-              </span>
-              <span className="text-[9px] font-bold text-gray-400 ml-1 mt-0.5 tracking-wider uppercase">
-                IN
               </span>
             </div>
           </Link>

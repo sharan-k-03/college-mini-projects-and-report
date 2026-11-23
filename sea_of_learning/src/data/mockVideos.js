@@ -3,6 +3,7 @@ export const CATEGORIES = [
   "Mathematics",
   "Science",
   "History",
+  "Engineering",
   "Programming",
   "Language",
   "Physics",
@@ -14,6 +15,23 @@ export const CATEGORIES = [
 ];
 
 export const mockVideos = [
+  {
+    id: "eng-1",
+    title: "Engineering Fundamentals — Design, Materials & Systems",
+    description:
+      "Explore the core engineering process through design thinking, material selection, systems analysis, and practical problem solving.",
+    thumbnail: "https://picsum.photos/seed/engineering/400/225",
+    videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
+    category: "Engineering",
+    tags: ["engineering", "design", "systems", "materials"],
+    uploader: "Prof. Meera",
+    uploaderId: "u-eng",
+    views: 36500,
+    likes: 2800,
+    duration: "46:12",
+    uploadDate: "2024-12-02",
+    comments: [],
+  },
   {
     id: "1",
     title: "Introduction to Calculus — Limits & Derivatives",

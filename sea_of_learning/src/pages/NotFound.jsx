@@ -3,8 +3,8 @@ import { BookOpen } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center py-32 gap-4 text-center">
-      <div className="text-8xl font-black text-indigo-100 dark:text-indigo-900 select-none">404</div>
+    <div className="flex flex-col items-center justify-center gap-4 px-4 py-32 text-center">
+      <div className="select-none text-8xl font-black text-indigo-100 dark:text-indigo-900/40">404</div>
       <BookOpen size={48} className="text-indigo-400" strokeWidth={1.5} />
       <h2 className="text-xl font-bold text-gray-900 dark:text-white">Page not found</h2>
       <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xs">

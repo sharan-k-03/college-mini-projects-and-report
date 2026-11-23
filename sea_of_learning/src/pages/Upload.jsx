@@ -9,8 +9,8 @@ export default function UploadPage() {
 
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 gap-4 text-center px-4">
-        <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-4 px-4 py-32 text-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-indigo-500/20 bg-indigo-500/10">
           <Upload size={28} className="text-indigo-600" />
         </div>
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Sign in to upload</h2>

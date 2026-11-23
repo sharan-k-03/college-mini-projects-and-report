@@ -72,8 +72,8 @@ export default function UploadModal({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-white dark:bg-gray-900 rounded-2xl shadow-2xl my-6 max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white dark:bg-gray-900 px-4 sm:px-6 pt-5 pb-3.5 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between z-10">
+      <div className="relative my-6 max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-neutral-200 bg-white shadow-2xl dark:border-white/10 dark:bg-[#111114]">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-100 bg-white px-4 pb-3.5 pt-5 dark:border-white/8 dark:bg-[#111114] sm:px-6">
           <h2 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white">Upload Study Video</h2>
           <button onClick={onClose} className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500">
             <X size={18} />

@@ -10,7 +10,7 @@ export default function Profile() {
 
   if (!user) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 gap-4">
+      <div className="flex flex-col items-center justify-center gap-4 px-4 py-32 text-center">
         <User size={48} className="text-gray-300" strokeWidth={1.5} />
         <p className="text-gray-500 dark:text-gray-400">Please sign in to view your profile.</p>
         <button onClick={login} className="px-6 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700">
@@ -24,12 +24,12 @@ export default function Profile() {
   const savedVideos = videos.filter((v) => savedIds.includes(v.id));
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-4 py-8">
+    <div className="mx-auto max-w-screen-2xl px-4 py-8 sm:px-6">
       {/* Profile header */}
-      <div className="flex items-center gap-5 mb-8">
-        <img src={user.avatar} alt={user.name} className="w-20 h-20 rounded-full border-4 border-indigo-200 dark:border-indigo-700" />
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{user.name}</h1>
+      <div className="mb-8 flex flex-wrap items-center gap-5 rounded-3xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-white/8 dark:bg-white/[.03] sm:p-7">
+        <img src={user.avatar} alt={user.name} className="h-20 w-20 rounded-full border-4 border-indigo-500/20" />
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold text-neutral-950 dark:text-white">{user.name}</h1>
           <p className="text-gray-500 dark:text-gray-400 text-sm">{user.email}</p>
           <div className="flex gap-4 mt-2 text-sm text-gray-600 dark:text-gray-400">
             <span><strong className="text-gray-900 dark:text-white">{myVideos.length}</strong> videos</span>
