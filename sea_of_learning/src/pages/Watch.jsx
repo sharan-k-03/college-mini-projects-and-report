@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ThumbsUp,
   Bookmark,
@@ -18,9 +18,11 @@ import { formatViews, timeAgo } from "../utils/validators";
 
 export default function Watch() {
   const { id } = useParams();
-  const { videos, likedIds, savedIds, likeVideo, unlikeVideo, incrementViews, saveVideo, unsaveVideo } =
+  const { videos, likedIds, savedIds, progress, likeVideo, unlikeVideo, incrementViews, saveVideo, unsaveVideo, updateProgress, markComplete } =
     useVideos();
-  const { user, login } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const video = videos.find((v) => v.id === id);
   const related = videos.filter((v) => v.id !== id && v.category === video?.category).slice(0, 6);
@@ -47,18 +49,47 @@ export default function Watch() {
 
   const isLiked = likedIds.includes(id);
   const isSaved = savedIds.includes(id);
+  const currentProgress = progress?.[id] || { percentage: 0, completed: false };
+
+  const savePlaybackProgress = (event) => {
+    const media = event.currentTarget;
+    if (!media.duration) return;
+    updateProgress(id, (media.currentTime / media.duration) * 100);
+  };
 
   const handleLike = () => {
-    if (!user) { login(); return; }
+    if (!user) {
+      navigate("/login", { state: { mode: "signin", returnTo: location.pathname } });
+      return;
+    }
     isLiked ? unlikeVideo(id) : likeVideo(id);
   };
   const handleSave = () => {
-    if (!user) { login(); return; }
+    if (!user) {
+      navigate("/login", { state: { mode: "signin", returnTo: location.pathname } });
+      return;
+    }
     isSaved ? unsaveVideo(id) : saveVideo(id);
   };
 
   return (
     <div className="mx-auto max-w-screen-2xl px-3 py-5 sm:px-6 sm:py-8">
+      {currentProgress.percentage > 0 && (
+        <div className="mb-4 rounded-xl border border-[#dcd8cf] bg-[#faf9f6] px-4 py-3 dark:border-white/10 dark:bg-white/[.03]">
+          <div className="mb-2 flex items-center justify-between gap-3 text-xs">
+            <span className="font-semibold text-[#52665d] dark:text-neutral-300">
+              {currentProgress.completed ? "Lecture completed" : "Your progress"}
+            </span>
+            <span className="text-neutral-500 dark:text-neutral-400">{currentProgress.completed ? 100 : currentProgress.percentage}%</span>
+          </div>
+          <div className="h-1.5 overflow-hidden rounded-full bg-[#e6e2d7] dark:bg-white/10">
+            <div
+              className="h-full rounded-full bg-[#52665d]"
+              style={{ width: `${currentProgress.completed ? 100 : currentProgress.percentage}%` }}
+            />
+          </div>
+        </div>
+      )}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Main column */}
         <div className="flex-1 min-w-0">
@@ -69,6 +100,8 @@ export default function Watch() {
               controls
               width="100%"
               height="100%"
+              onPause={savePlaybackProgress}
+              onEnded={savePlaybackProgress}
               config={{ file: { attributes: { controlsList: "nodownload" } } }}
             />
           </div>
@@ -121,6 +154,17 @@ export default function Watch() {
                 >
                   <Share2 size={14} />
                   <span>Share</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => markComplete(id)}
+                  className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all shrink-0
+                    ${currentProgress.completed
+                      ? "bg-[#52665d] text-white"
+                      : "border border-[#52665d] text-[#52665d] hover:bg-[#edf0e9] dark:text-neutral-200 dark:hover:bg-white/10"
+                    }`}
+                >
+                  {currentProgress.completed ? "Completed" : "Mark complete"}
                 </button>
               </div>
             </div>

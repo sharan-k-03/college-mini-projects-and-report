@@ -7,9 +7,10 @@ import AiHeroLayout from "../components/AiHeroLayout";
 import { VariantA, VariantB, VariantC } from "../components/HomePrototypes";
 import { useVideos } from "../context/VideoContext";
 import { useSearch } from "../hooks/useSearch";
+import ContinueLearning from "../components/ContinueLearning";
 
 export default function Home({ query, setQuery }) {
-  const { videos } = useVideos();
+  const { videos, progress } = useVideos();
   const [searchParams] = useSearchParams();
   const urlQuery = searchParams.get("q") || "";
   const variant = searchParams.get("variant") || "A";
@@ -37,6 +38,8 @@ export default function Home({ query, setQuery }) {
     <div className="mx-auto max-w-screen-2xl px-3 pb-28 pt-5 sm:px-6 sm:pt-7">
       {/* Category chips */}
       <CategoryChips selected={category} onSelect={setCategory} />
+
+      <ContinueLearning videos={videos} progress={progress} limit={3} />
 
       {/* Sort + result count */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mt-4 mb-5">

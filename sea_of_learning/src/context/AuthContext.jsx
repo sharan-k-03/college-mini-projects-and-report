@@ -11,22 +11,24 @@ const MOCK_USER = {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    try {
-      const saved = localStorage.getItem("sea_of_learning_user");
-      return saved ? JSON.parse(saved) : null;
-    } catch {
-      return null;
-    }
+    return null;
   });
 
-  const login = () => {
-    setUser(MOCK_USER);
-    localStorage.setItem("sea_of_learning_user", JSON.stringify(MOCK_USER));
+  const login = (account = null) => {
+    const signedInUser = account
+      ? {
+          id: `u_${Date.now()}`,
+          name: account.name?.trim() || "You",
+          avatar: `https://api.dicebear.com/7.x/thumbs/svg?seed=${encodeURIComponent(account.name?.trim() || "sea_of_learning")}`,
+          email: account.email?.trim() || MOCK_USER.email,
+        }
+      : MOCK_USER;
+    setUser(signedInUser);
+    return signedInUser;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("sea_of_learning_user");
   };
 
   return (

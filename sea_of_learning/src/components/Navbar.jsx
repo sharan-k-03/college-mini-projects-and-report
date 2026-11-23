@@ -1,10 +1,20 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, Upload, Moon, Sun, User, LogOut, LogIn } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar({ query, setQuery, darkMode, setDarkMode }) {
-  const { user, login, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const openLogin = (mode = "signin") => {
+    navigate("/login", {
+      state: {
+        mode,
+        returnTo: location.pathname + location.search,
+      },
+    });
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -107,7 +117,7 @@ export default function Navbar({ query, setQuery, darkMode, setDarkMode }) {
             </div>
           ) : (
             <button
-              onClick={login}
+              onClick={() => openLogin("signin")}
               className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full border border-gray-300 dark:border-gray-600
                          text-gray-700 dark:text-gray-200 text-xs sm:text-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >

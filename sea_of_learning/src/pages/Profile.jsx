@@ -2,18 +2,24 @@ import { useAuth } from "../context/AuthContext";
 import { useVideos } from "../context/VideoContext";
 import VideoCard from "../components/VideoCard";
 import { User, Bookmark, Upload } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import ContinueLearning from "../components/ContinueLearning";
 
 export default function Profile() {
-  const { user, login } = useAuth();
-  const { videos, savedIds } = useVideos();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { videos, savedIds, progress } = useVideos();
 
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 px-4 py-32 text-center">
         <User size={48} className="text-gray-300" strokeWidth={1.5} />
         <p className="text-gray-500 dark:text-gray-400">Please sign in to view your profile.</p>
-        <button onClick={login} className="px-6 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700">
+        <button
+          onClick={() => navigate("/login", { state: { mode: "signin", returnTo: location.pathname } })}
+          className="px-6 py-2 rounded-full bg-indigo-600 text-white hover:bg-indigo-700"
+        >
           Sign in
         </button>
       </div>
@@ -43,6 +49,8 @@ export default function Profile() {
           <Upload size={15} /> Upload Video
         </Link>
       </div>
+
+      <ContinueLearning videos={videos} progress={progress} limit={3} />
 
       {/* My uploads */}
       <section className="mb-10">

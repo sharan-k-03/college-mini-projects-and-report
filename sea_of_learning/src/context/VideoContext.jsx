@@ -62,6 +62,33 @@ function videoReducer(state, action) {
         savedIds: state.savedIds.filter((id) => id !== action.payload),
       };
 
+    case "UPDATE_PROGRESS":
+      return {
+        ...state,
+        progress: {
+          ...state.progress,
+          [action.payload.videoId]: {
+            percentage: action.payload.percentage,
+            completed: action.payload.completed,
+            updatedAt: action.payload.updatedAt,
+          },
+        },
+      };
+
+    case "MARK_COMPLETE":
+      return {
+        ...state,
+        progress: {
+          ...state.progress,
+          [action.payload]: {
+            ...(state.progress?.[action.payload] || {}),
+            percentage: 100,
+            completed: true,
+            updatedAt: new Date().toISOString(),
+          },
+        },
+      };
+
     default:
       return state;
   }
@@ -87,6 +114,7 @@ const initialState = loadState() || {
   videos: mockVideos,
   likedIds: [],
   savedIds: [],
+  progress: {},
 };
 
 export function VideoProvider({ children }) {
@@ -104,6 +132,17 @@ export function VideoProvider({ children }) {
     dispatch({ type: "ADD_COMMENT", payload: { videoId, comment } });
   const saveVideo = (id) => dispatch({ type: "SAVE_VIDEO", payload: id });
   const unsaveVideo = (id) => dispatch({ type: "UNSAVE_VIDEO", payload: id });
+  const updateProgress = (videoId, percentage) =>
+    dispatch({
+      type: "UPDATE_PROGRESS",
+      payload: {
+        videoId,
+        percentage: Math.max(0, Math.min(100, Math.round(percentage))),
+        completed: state.progress?.[videoId]?.completed || false,
+        updatedAt: new Date().toISOString(),
+      },
+    });
+  const markComplete = (videoId) => dispatch({ type: "MARK_COMPLETE", payload: videoId });
 
   return (
     <VideoContext.Provider
@@ -111,6 +150,7 @@ export function VideoProvider({ children }) {
         videos: state.videos,
         likedIds: state.likedIds,
         savedIds: state.savedIds,
+        progress: state.progress || {},
         addVideo,
         likeVideo,
         unlikeVideo,
@@ -118,6 +158,8 @@ export function VideoProvider({ children }) {
         addComment,
         saveVideo,
         unsaveVideo,
+        updateProgress,
+        markComplete,
       }}
     >
       {children}

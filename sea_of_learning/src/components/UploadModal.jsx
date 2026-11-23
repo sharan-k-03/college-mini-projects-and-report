@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { X, Upload, AlertCircle, CheckCircle2, ShieldAlert } from "lucide-react";
-import { CATEGORIES } from "../data/mockVideos";
 import { validateUpload } from "../utils/validators";
 import { useVideos } from "../context/VideoContext";
 import { useAuth } from "../context/AuthContext";
+import { useSubjects } from "../context/SubjectContext";
 import { useNavigate } from "react-router-dom";
-
-const STUDY_CATEGORIES = CATEGORIES.filter((c) => c !== "All");
 
 export default function UploadModal({ onClose }) {
   const { addVideo } = useVideos();
   const { user } = useAuth();
+  const { categories } = useSubjects();
+  const studyCategories = categories.filter((category) => category !== "All");
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -136,7 +136,7 @@ export default function UploadModal({ onClose }) {
                          focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="">Select subject</option>
-              {STUDY_CATEGORIES.map((c) => (
+              {studyCategories.map((c) => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>

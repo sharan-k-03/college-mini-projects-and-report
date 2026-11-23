@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import UploadModal from "../components/UploadModal";
 import { useAuth } from "../context/AuthContext";
 import { Upload, LogIn } from "lucide-react";
 
 export default function UploadPage() {
-  const { user, login } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [open, setOpen] = useState(true);
 
   if (!user) {
@@ -18,7 +21,7 @@ export default function UploadPage() {
           Create an account or sign in to share your study videos with the community.
         </p>
         <button
-          onClick={login}
+          onClick={() => navigate("/login", { state: { mode: "signin", returnTo: location.pathname } })}
           className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors"
         >
           <LogIn size={16} /> Sign in to upload

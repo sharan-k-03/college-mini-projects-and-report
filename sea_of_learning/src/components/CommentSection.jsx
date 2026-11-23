@@ -3,16 +3,22 @@ import { Send, MessageCircle } from "lucide-react";
 import { useVideos } from "../context/VideoContext";
 import { useAuth } from "../context/AuthContext";
 import { timeAgo } from "../utils/validators";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CommentSection({ video }) {
   const { addComment } = useVideos();
-  const { user, login } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!text.trim()) return;
-    if (!user) { login(); return; }
+    if (!user) {
+      navigate("/login", { state: { mode: "signin", returnTo: location.pathname } });
+      return;
+    }
     addComment(video.id, {
       id: `c_${Date.now()}`,
       user: user.name,

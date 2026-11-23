@@ -1,6 +1,14 @@
 import { CATEGORIES } from "../data/mockVideos.js";
 
-const STUDY_CATEGORIES = CATEGORIES.filter((c) => c !== "All");
+const getValidCategories = () => {
+  try {
+    const saved = JSON.parse(localStorage.getItem("sea_of_learning_subjects") || "[]");
+    const custom = Array.isArray(saved) ? saved : [];
+    return CATEGORIES.filter((category) => category !== "All").concat(custom);
+  } catch {
+    return CATEGORIES.filter((category) => category !== "All");
+  }
+};
 
 /**
  * Validates that an upload is study-related.
@@ -24,10 +32,11 @@ export function validateUpload({ title, description, category, file }) {
   if (!title || title.trim().length < 5) {
     return { valid: false, error: "Title must be at least 5 characters." };
   }
-  if (!category || !STUDY_CATEGORIES.includes(category)) {
+  const studyCategories = getValidCategories();
+  if (!category || !studyCategories.includes(category)) {
     return {
       valid: false,
-      error: `Please select a valid academic category: ${STUDY_CATEGORIES.join(", ")}.`,
+      error: `Please select a valid academic category: ${studyCategories.join(", ")}.`,
     };
   }
   if (!description || description.trim().length < 20) {
