@@ -9,9 +9,16 @@ const MOCK_USER = {
   email: "student@seaoflearning.app",
 };
 
+const STORAGE_KEY = "sea_of_learning_user";
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
-    return null;
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
   });
 
   const login = (account = null) => {
@@ -24,11 +31,17 @@ export function AuthProvider({ children }) {
         }
       : MOCK_USER;
     setUser(signedInUser);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(signedInUser));
+    } catch {}
     return signedInUser;
   };
 
   const logout = () => {
     setUser(null);
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {}
   };
 
   return (

@@ -6,7 +6,7 @@ A public collection of college mini-projects, reports, prototypes, and learning 
 
 **sea_of_learning** is an ad-free educational video platform prototype for discovering, watching, saving, and sharing academic lectures.
 
-It provides a YouTube-style learning experience with academic categories, search, filtering, sorting, video playback, likes, saved videos, discussion notes, mock authentication, local uploads, dark mode, and five switchable home-page layout prototypes.
+It provides a YouTube-style learning experience with academic categories, search, filtering, sorting, video playback, likes, saved videos, discussion notes, mock authentication, local uploads, dark mode, and six switchable home-page layout prototypes.
 
 The project lives in [`sea_of_learning/`](sea_of_learning/) and is built with React 19 and Vite.
 
@@ -24,7 +24,7 @@ The project lives in [`sea_of_learning/`](sea_of_learning/) and is built with Re
 - Sign in and out through a mock authentication flow
 - Switch between light and dark themes
 - Use responsive layouts across desktop, tablet, and mobile
-- Explore five switchable home-page layout prototypes
+- Explore six switchable home-page layout prototypes
 
 ## Project Structure
 
@@ -61,7 +61,7 @@ The project lives in [`sea_of_learning/`](sea_of_learning/) and is built with Re
 
 ### Prerequisites
 
-- Node.js 18 or newer
+- Node.js 20.19+ or 22.12+
 - npm
 
 ### Run the Project
@@ -93,6 +93,8 @@ Run these commands from the `sea_of_learning/` directory.
 | `/watch/:id` | Lecture player, details, actions, related lectures, and notes |
 | `/upload` | Auth-gated study-video upload form |
 | `/profile` | User profile, uploaded lectures, and saved lectures |
+| `/papers` | Experimental research-paper discovery and local PDF publishing |
+| `/papers/:id` | PDF preview, metadata, bookmark, download, and discussion |
 | `*` | Not-found page |
 
 ## Data and Prototype Limitations

@@ -14,6 +14,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { timeAgo, formatViews, validateUpload } from "../utils/validators.js";
+import { paperReducer } from "../utils/paperState.js";
 
 // Import pure reducer logic from VideoContext (or test actual implementation)
 function videoReducer(state, action) {
@@ -121,5 +122,44 @@ describe("BUG 5 - Form Validation Top-to-Bottom Order", () => {
     });
     assert.equal(res.valid, false);
     assert.equal(res.error, "Please select a video file.");
+  });
+});
+
+describe("Paper state - Idempotent bookmarking", () => {
+  it("does not duplicate bookmark IDs or overincrement bookmark counts", () => {
+    const initial = {
+      papers: [{ id: "paper-1", views: 0, bookmarks: 2, comments: [] }],
+      bookmarkedIds: [],
+    };
+    const saved = paperReducer(initial, { type: "TOGGLE_BOOKMARK", payload: "paper-1" });
+    const savedAgain = paperReducer(saved, { type: "TOGGLE_BOOKMARK", payload: "paper-1" });
+    const finalState = paperReducer(savedAgain, { type: "TOGGLE_BOOKMARK", payload: "paper-1" });
+
+    assert.deepEqual(finalState.bookmarkedIds, ["paper-1"]);
+    assert.equal(finalState.papers[0].bookmarks, 3);
+  });
+});
+
+describe("Paper state - Comment and view updates", () => {
+  it("adds comments and increments views at the correct paper", () => {
+    const initial = {
+      papers: [
+        { id: "paper-1", views: 4, bookmarks: 0, comments: [] },
+        { id: "paper-2", views: 7, bookmarks: 0, comments: [] },
+      ],
+      bookmarkedIds: [],
+    };
+    const viewed = paperReducer(initial, { type: "INCREMENT_VIEWS", payload: "paper-1" });
+    const withComment = paperReducer(viewed, {
+      type: "ADD_COMMENT",
+      payload: {
+        paperId: "paper-1",
+        comment: { id: "c-1", user: "Student", text: "Useful findings" },
+      },
+    });
+
+    assert.equal(withComment.papers[0].views, 5);
+    assert.equal(withComment.papers[1].views, 7);
+    assert.equal(withComment.papers[0].comments.length, 1);
   });
 });

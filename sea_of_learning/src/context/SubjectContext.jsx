@@ -32,10 +32,37 @@ export function SubjectProvider({ children }) {
     return { ok: true, subject };
   };
 
+  const renameSubject = (oldName, name) => {
+    const subject = name.trim().replace(/\s+/g, " ").slice(0, 40);
+    if (!subject) return { ok: false, error: "Enter a subject name." };
+    if (subject.toLowerCase() === oldName.toLowerCase()) {
+      return { ok: true, subject: oldName, changed: false };
+    }
+
+    const existing = [...CATEGORIES, ...customSubjects]
+      .some((category) =>
+        category !== oldName && category.toLowerCase() === subject.toLowerCase()
+      );
+    if (existing) return { ok: false, error: "This subject already exists." };
+
+    setCustomSubjects((current) =>
+      current.map((category) => category === oldName ? subject : category)
+    );
+    return { ok: true, subject, changed: true };
+  };
+
+  const deleteSubject = (name) => {
+    if (!customSubjects.includes(name)) {
+      return { ok: false, error: "Only custom subjects can be deleted." };
+    }
+    setCustomSubjects((current) => current.filter((category) => category !== name));
+    return { ok: true };
+  };
+
   const categories = ["All", ...CATEGORIES.slice(1), ...customSubjects];
 
   return (
-    <SubjectContext.Provider value={{ categories, customSubjects, addSubject }}>
+    <SubjectContext.Provider value={{ categories, customSubjects, addSubject, renameSubject, deleteSubject }}>
       {children}
     </SubjectContext.Provider>
   );

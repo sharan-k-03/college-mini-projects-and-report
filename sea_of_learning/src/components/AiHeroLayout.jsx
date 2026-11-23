@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { Sparkles, Terminal, ArrowRight, BookOpen, Layers, ShieldCheck, Play, Clock, Eye, Compass } from "lucide-react";
-import { formatViews, timeAgo } from "../utils/validators";
+import { Terminal, ArrowRight, BookOpen, Play, Compass } from "lucide-react";
+import { formatViews } from "../utils/validators";
 
-export default function AiHeroLayout({ videos, selectedCategory, onSelectCategory }) {
+export default function AiHeroLayout({ videos }) {
   const featured = videos[0];
-  const rest = videos.slice(1);
 
   return (
     <div className="space-y-16 py-4">
@@ -23,7 +22,7 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
           {/* Main Headline */}
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight text-white">
             Master Every Subject. <br />
-            <span className="bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">
+            <span className="text-[#d7c99d]">
               No Distractions.
             </span>
           </h1>
@@ -37,7 +36,7 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
           {/* Interactive Shell / Codebox feature badge */}
           <div className="p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-800 font-mono text-xs text-neutral-300 flex items-center justify-between gap-4 max-w-lg">
             <div className="flex items-center gap-2 truncate">
-              <Terminal size={14} className="text-indigo-400 shrink-0" />
+              <Terminal size={14} className="text-[#d7c99d] shrink-0" />
               <span className="text-neutral-500">$</span>
               <span className="text-emerald-400 truncate">npx learn sea_of_learning --track=all</span>
             </div>
@@ -71,7 +70,7 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
       <section className="space-y-4 text-left">
         <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
           <div className="flex items-center gap-2">
-            <Compass size={18} className="text-indigo-600 dark:text-indigo-400" />
+            <Compass size={18} className="text-[#52665d] dark:text-[#b7c2b7]" />
             <h2 className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">
               Curriculum Tracks
             </h2>
@@ -87,7 +86,7 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
             <Link
               key={v.id}
               to={`/watch/${v.id}`}
-              className="group flex flex-col justify-between p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all shadow-xs hover:shadow-md"
+              className="group flex flex-col justify-between p-4 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 hover:border-[#52665d]/50 transition-all shadow-xs hover:shadow-md"
             >
               <div className="space-y-3">
                 {/* Thumbnail with Tech Badge */}
@@ -107,7 +106,7 @@ export default function AiHeroLayout({ videos, selectedCategory, onSelectCategor
 
                 {/* Content */}
                 <div>
-                  <h3 className="text-sm font-bold text-neutral-950 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2 leading-snug">
+                  <h3 className="text-sm font-bold text-neutral-950 dark:text-white group-hover:text-[#52665d] dark:group-hover:text-[#cbd4cb] transition-colors line-clamp-2 leading-snug">
                     {v.title}
                   </h3>
                   <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1 line-clamp-2 leading-relaxed font-normal">

@@ -3,14 +3,16 @@ import { BookOpen } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 px-4 py-32 text-center">
-      <div className="select-none text-8xl font-black text-indigo-100 dark:text-indigo-900/40">404</div>
-      <BookOpen size={48} className="text-indigo-400" strokeWidth={1.5} />
-      <h2 className="text-xl font-bold text-gray-900 dark:text-white">Page not found</h2>
-      <p className="text-gray-500 dark:text-gray-400 text-sm max-w-xs">
+    <div className="mx-auto flex min-h-[calc(100dvh-4rem)] max-w-screen-xl flex-col items-center justify-center px-4 py-16 text-center">
+      <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full border border-[#dcd8cf] bg-[#eee8d5] text-[#20372f] dark:border-white/10 dark:bg-white/[.06] dark:text-[#d7c99d]">
+        <BookOpen size={38} strokeWidth={1.5} />
+      </div>
+      <p className="text-xs font-bold uppercase tracking-[0.22em] text-[#52665d] dark:text-[#b7c2b7]">Error 404</p>
+      <h1 className="mt-3 text-4xl text-[#252724] dark:text-white">Page not found</h1>
+      <p className="mt-3 max-w-sm text-sm leading-6 text-neutral-600 dark:text-neutral-400">
         The page you're looking for doesn't exist. Head back and keep studying!
       </p>
-      <Link to="/" className="mt-2 px-6 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors">
+      <Link to="/" className="mt-6 rounded-full bg-[#20372f] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2f4a40]">
         Back to sea_of_learning
       </Link>
     </div>

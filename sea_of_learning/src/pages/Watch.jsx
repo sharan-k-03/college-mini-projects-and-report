@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ThumbsUp,
@@ -15,6 +15,7 @@ import { useAuth } from "../context/AuthContext";
 import CommentSection from "../components/CommentSection";
 import VideoCard from "../components/VideoCard";
 import { formatViews, timeAgo } from "../utils/validators";
+import { getVideoBlob } from "../utils/mediaStorage";
 
 export default function Watch() {
   const { id } = useParams();
@@ -23,24 +24,54 @@ export default function Watch() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [playerUrl, setPlayerUrl] = useState("");
 
   const video = videos.find((v) => v.id === id);
+  const mediaId = video?.mediaId;
+  const videoSource = video?.videoUrl;
+  useEffect(() => {
+    let active = true;
+    let blobUrl = null;
+
+    async function resolvePlayerUrl() {
+      if (!video) {
+        setPlayerUrl("");
+        return;
+      }
+      if (mediaId) {
+        const blob = await getVideoBlob(mediaId);
+        if (!active) return;
+        if (blob) {
+          blobUrl = URL.createObjectURL(blob);
+          setPlayerUrl(blobUrl);
+          return;
+        }
+      }
+      setPlayerUrl(videoSource || "");
+    }
+
+    resolvePlayerUrl();
+    return () => {
+      active = false;
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+    };
+  }, [id, mediaId, videoSource, video]);
   const related = videos.filter((v) => v.id !== id && v.category === video?.category).slice(0, 6);
 
-  const hasViewed = useRef(false);
+  const hasViewed = useRef(new Set());
   useEffect(() => {
-    if (video && !hasViewed.current) {
+    if (video && !hasViewed.current.has(id)) {
       incrementViews(id);
-      hasViewed.current = true;
+      hasViewed.current.add(id);
     }
-  }, [id]); // eslint-disable-line
+  }, [id, video?.id]); // eslint-disable-line
 
   if (!video) {
     return (
       <div className="flex flex-col items-center justify-center px-4 py-20 text-center text-neutral-400">
         <BookOpen size={48} strokeWidth={1.5} />
         <p className="mt-4 text-base sm:text-lg font-medium text-gray-700 dark:text-gray-300">Video not found</p>
-        <Link to="/" className="mt-3 text-indigo-600 dark:text-indigo-400 hover:underline text-sm font-medium">
+        <Link to="/" className="mt-3 text-[#52665d] dark:text-[#cbd4cb] hover:underline text-sm font-medium">
           Return to home
         </Link>
       </div>
@@ -62,14 +93,22 @@ export default function Watch() {
       navigate("/login", { state: { mode: "signin", returnTo: location.pathname } });
       return;
     }
-    isLiked ? unlikeVideo(id) : likeVideo(id);
+    if (isLiked) {
+      unlikeVideo(id);
+    } else {
+      likeVideo(id);
+    }
   };
   const handleSave = () => {
     if (!user) {
       navigate("/login", { state: { mode: "signin", returnTo: location.pathname } });
       return;
     }
-    isSaved ? unsaveVideo(id) : saveVideo(id);
+    if (isSaved) {
+      unsaveVideo(id);
+    } else {
+      saveVideo(id);
+    }
   };
 
   return (
@@ -94,9 +133,9 @@ export default function Watch() {
         {/* Main column */}
         <div className="flex-1 min-w-0">
           {/* Video player */}
-          <div className="aspect-video overflow-hidden rounded-2xl border border-white/8 bg-black shadow-2xl">
+          <div className="aspect-video overflow-hidden rounded-[20px] border border-[#2f4a40]/30 bg-black shadow-[0_24px_70px_rgba(38,48,42,.16)]">
             <ReactPlayer
-              url={video.videoUrl}
+              url={playerUrl || video.videoUrl}
               controls
               width="100%"
               height="100%"
@@ -127,7 +166,7 @@ export default function Watch() {
                   onClick={handleLike}
                   className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all shrink-0
                     ${isLiked
-                      ? "bg-indigo-600 text-white"
+                      ? "bg-[#20372f] text-white"
                       : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                     }`}
                 >
@@ -148,7 +187,14 @@ export default function Watch() {
                 </button>
 
                 <button
-                  onClick={() => navigator.share?.({ title: video.title, url: window.location.href })}
+                  onClick={async () => {
+                    const shareData = { title: video.title, url: window.location.href };
+                    if (navigator.share) {
+                      await navigator.share(shareData).catch(() => {});
+                    } else if (navigator.clipboard) {
+                      await navigator.clipboard.writeText(window.location.href);
+                    }
+                  }}
                   className="inline-flex items-center gap-1.5 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium
                              bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all shrink-0"
                 >
@@ -179,11 +225,11 @@ export default function Watch() {
                 />
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-gray-900 dark:text-white text-xs sm:text-sm truncate">{video.uploader}</p>
-                  <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 mt-0.5">
+                  <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#eee8d5] dark:bg-white/10 text-[#52665d] dark:text-[#cbd4cb] mt-0.5">
                     <User size={10} /> Educator
                   </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-full bg-indigo-600 text-white text-[11px] font-semibold shrink-0">
+                <span className="px-2.5 py-1 rounded-full bg-[#20372f] text-white text-[11px] font-semibold shrink-0">
                   {video.category}
                 </span>
               </div>

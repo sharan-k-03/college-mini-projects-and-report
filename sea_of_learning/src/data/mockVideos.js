@@ -12,6 +12,7 @@ export const CATEGORIES = [
   "Geography",
   "Literature",
   "Arts",
+  "General",
 ];
 
 export const mockVideos = [

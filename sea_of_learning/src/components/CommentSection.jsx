@@ -33,7 +33,7 @@ export default function CommentSection({ video }) {
   return (
     <div className="mt-6 text-left">
       <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white mb-3.5 flex items-center gap-2">
-        <MessageCircle size={16} className="text-indigo-500" />
+        <MessageCircle size={16} className="text-[#52665d]" />
         <span>{comments.length} Discussion Notes</span>
       </h3>
 
@@ -51,11 +51,11 @@ export default function CommentSection({ video }) {
             placeholder={user ? "Add a study question or note..." : "Sign in to participate"}
             className="flex-1 px-3.5 py-2 rounded-xl sm:rounded-full border border-gray-200 dark:border-gray-700
                        bg-gray-50 dark:bg-gray-800 text-xs sm:text-sm text-gray-900 dark:text-white
-                       placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                       placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#52665d]/30"
           />
           <button
             type="submit"
-            className="self-end sm:self-auto px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm
+            className="self-end sm:self-auto px-4 py-2 rounded-full bg-[#20372f] hover:bg-[#2f4a40] text-white text-xs sm:text-sm
                        font-medium inline-flex items-center gap-1.5 transition-colors shrink-0 shadow-xs"
           >
             <Send size={13} />

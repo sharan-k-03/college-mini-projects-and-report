@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Layers } from "lucide-react";
 
@@ -12,13 +12,13 @@ export default function PrototypeSwitcher({ variants, current }) {
   const currentIndex = variants.findIndex((v) => v.id === current);
   const activeIndex = currentIndex === -1 ? 0 : currentIndex;
 
-  const selectVariant = (index) => {
+  const selectVariant = useCallback((index) => {
     const nextIndex = (index + variants.length) % variants.length;
     const nextVariant = variants[nextIndex];
     const newParams = new URLSearchParams(searchParams);
     newParams.set("variant", nextVariant.id);
     setSearchParams(newParams);
-  };
+  }, [searchParams, setSearchParams, variants]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -37,13 +37,13 @@ export default function PrototypeSwitcher({ variants, current }) {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeIndex, variants, searchParams]);
+  }, [activeIndex, selectVariant]);
 
   const activeVariant = variants[activeIndex] || variants[0];
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 sm:gap-2 px-3 py-2 bg-gray-900/95 text-white backdrop-blur-md rounded-full shadow-2xl border border-white/20 select-none max-w-[92vw]">
-      <div className="hidden xs:flex items-center gap-1 text-[11px] text-indigo-400 font-semibold uppercase tracking-wider pr-2 border-r border-gray-700">
+      <div className="hidden xs:flex items-center gap-1 text-[11px] text-[#d7c99d] font-semibold uppercase tracking-wider pr-2 border-r border-gray-700">
         <Layers size={13} />
         <span>Layout</span>
       </div>
@@ -58,7 +58,7 @@ export default function PrototypeSwitcher({ variants, current }) {
       </button>
 
       <div className="flex items-center gap-1.5 text-xs font-medium justify-center text-center px-1">
-        <span className="px-1.5 py-0.5 rounded bg-indigo-600 text-[10px] font-bold text-white uppercase tracking-wider">
+        <span className="px-1.5 py-0.5 rounded bg-[#52665d] text-[10px] font-bold text-white uppercase tracking-wider">
           {activeVariant.id}
         </span>
         <span className="text-gray-200 text-xs truncate max-w-[120px] sm:max-w-[160px]">

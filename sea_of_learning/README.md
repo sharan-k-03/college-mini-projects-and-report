@@ -2,7 +2,7 @@
 
 An ad-free educational video platform prototype for discovering, watching, saving, and sharing academic lectures.
 
-The project is built with React and Vite. It provides a YouTube-style study experience with mock authentication, subject browsing, search, filtering, sorting, video playback, likes, saves, discussion notes, local uploads, dark mode, and five switchable home-page layouts.
+The project is built with React and Vite. It provides a YouTube-style study experience with mock authentication, subject browsing, search, filtering, sorting, video playback, likes, saves, discussion notes, local uploads, dark mode, and six switchable home-page layouts.
 
 ## Features
 
@@ -16,7 +16,7 @@ The project is built with React and Vite. It provides a YouTube-style study expe
 - Upload MP4, WebM, OGG, or MOV study videos up to 500 MB.
 - View uploaded and saved lectures on the profile page.
 - Switch between light and dark themes.
-- Choose from five home-page layouts, including the AI Hero, Spotlight, Curriculum, Syllabus, and Standard Grid designs.
+- Choose from six home-page layouts, including the AI Hero, Spotlight, Curriculum, Syllabus, Standard Grid, and 3D Study Stage designs.
 - Persist application state in the browser and keep the interface responsive across desktop, tablet, and mobile screens.
 
 ## Technology
@@ -73,6 +73,8 @@ Run these commands inside the `sea_of_learning/` directory:
 | `/watch/:id` | Video playback, lecture details, likes, saves, and discussion notes |
 | `/upload` | Mock-authenticated study-video upload form |
 | `/profile` | Mock user profile, uploaded lectures, and saved lectures |
+| `/papers` | Experimental research-paper discovery and local PDF publishing |
+| `/papers/:id` | PDF preview, metadata, bookmark, download, and discussion |
 | `*` | Not-found page |
 
 Search and layout options can also be included in the home-page URL:
@@ -81,6 +83,7 @@ Search and layout options can also be included in the home-page URL:
 - `/?variant=A` displays the Spotlight Hero and Grid layout.
 - `/?variant=B` displays the Curriculum Pathways layout.
 - `/?variant=C` displays the Syllabus List layout.
+- `/?variant=D` displays the 3D Study Stage layout.
 - `/?variant=default` displays the Standard Grid layout.
 - `/?variant=aihero` displays the default AI Hero layout.
 

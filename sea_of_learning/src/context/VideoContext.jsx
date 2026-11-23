@@ -89,6 +89,16 @@ function videoReducer(state, action) {
         },
       };
 
+    case "REASSIGN_CATEGORY":
+      return {
+        ...state,
+        videos: state.videos.map((video) =>
+          video.category === action.payload.from
+            ? { ...video, category: action.payload.to }
+            : video
+        ),
+      };
+
     default:
       return state;
   }
@@ -143,6 +153,8 @@ export function VideoProvider({ children }) {
       },
     });
   const markComplete = (videoId) => dispatch({ type: "MARK_COMPLETE", payload: videoId });
+  const reassignCategory = (from, to) =>
+    dispatch({ type: "REASSIGN_CATEGORY", payload: { from, to } });
 
   return (
     <VideoContext.Provider
@@ -160,6 +172,7 @@ export function VideoProvider({ children }) {
         unsaveVideo,
         updateProgress,
         markComplete,
+        reassignCategory,
       }}
     >
       {children}
